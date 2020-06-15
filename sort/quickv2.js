@@ -1,4 +1,12 @@
 let {ArrayList}=require('../ArrayList.js')
+/**快速排序
+ * 寻找一个主元，让其他元素和主元进行对比，大于主元的在一个集合里面，小于主元的在一个集合里面
+ * 反复递归，分解，解决
+ * 需要满足3个条件，对于数组任意下标k的元素，起点p，终点r，主元q
+ * p<=k<i Arr[k]<Arr[q]
+ * i+1<k<j-1  Arr[k]>Arr[q]
+ * k=q Arr[k]=Arr[q]
+*/
 class QuickSort extends ArrayList{
   constructor(){
     super()
@@ -14,24 +22,24 @@ class QuickSort extends ArrayList{
     }
   }
   partition(arr,p,r){
-    console.log(this.toString(),'start',p,'end',r,'X',arr[r],'R',r)
-    let i=p-1//i在-1位置，i指向arr中最小值的结束位置,则i+1为最大值集合的开始位置
-    let x=arr[r] //最后一位作为主元
+    let povit=arr[r]
+    let i=p-1
     for(let j=p;j<r;j++){
-      if(arr[j]<x){//如果当前元素小于主元
-        i++//另i向右移一位，
-        this.quickSwap(arr,i,j)//i和j进行换位
+      if(arr[j]<povit){
+        i++
+        this.quickSwap(arr,i,j)
       }
+      console.log('arr',this.toString(),j,i)
     }
-    this.quickSwap(arr,i+1,r)//最后主元和最大值中的最左面的元素互换位置
-    console.log('i',i+1)
+    this.quickSwap(arr,i+1,r)
+    
+    //把大于主元的最大值起始位置返出去
     return i+1
   }
   quickSwap(arr,index1,index2){
-    if(index1===index2)return 
-    let axur=arr[index1]
+    let temp=arr[index1]
     arr[index1]=arr[index2]
-    arr[index2]=axur
+    arr[index2]=temp
   }
 }
 function test(size){
